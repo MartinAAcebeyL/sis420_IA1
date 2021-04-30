@@ -38,12 +38,7 @@ def busqueda_BPA_solucion(estado_inicial, solucion):
                 aux.append(hijo_x)
                
                 hijo = estado_nodo.copy()
-            #print('salimos')
             nodo_actual.set_hijo(aux)
-            #print(nodo_actual)
-        #print(nodo_actual)
-            
-            #nodo_actual.set_hijo([hijo_izquierda, hijo_centro, hijo_derecha])
 
 
 if __name__ == "__main__":
