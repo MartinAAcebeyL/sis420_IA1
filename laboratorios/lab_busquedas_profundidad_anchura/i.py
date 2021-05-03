@@ -68,11 +68,13 @@ def busqueda_BPPR(nodo_inicial, solucion, visitado):
                  
 #         print(lista_hijos)
         nodo_inicial.set_hijo(lista_hijos)
-        for estado in nodo_inicial.get_estado():
+
+        """for estado in nodo_inicial.get_estado():
             for fila in estado:
                 print(fila, end=' ')
             print()
-        print("-----")
+        print("-----")"""
+        
         for nodo_hijo in nodo_inicial.get_hijo():
             if not nodo_hijo.get_estado() in visitado:
                 # Llamada Recursiva
@@ -101,7 +103,7 @@ if __name__ == "__main__":
     resultado.append(nodo_inicial.get_estado())
     resultado.reverse()
     
-    """for estado in resultado:
+    for estado in resultado:
         for fila in estado:
             print(fila)
-        print("---------")"""
+        print("---------")
