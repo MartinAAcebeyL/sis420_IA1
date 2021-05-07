@@ -98,7 +98,7 @@ def busqueda_BPPR(nodo_inicial, visitado, to_kill):
 
 if __name__ == "__main__":
     estado_inicial = [['0', 'B', '0', '0'], 
-                      ['0', '0', '0', 'A'], 
+                      ['B', '0', '0', 'A'], 
                       ['0', '0', 'B', '0'],
                       ['0', 'B', '0', 'B']]
 
