@@ -1,4 +1,4 @@
-# Busqueda en Amplitud - Breadth First Search
+# Busqueda en anchura - Breadth First Search
 from Nodos import Nodo
 
 
