@@ -124,4 +124,4 @@ if __name__=="__main__":
         t=tm.time()
         alg=AGenetico(n)
         alg.run()
-        print(" %02.03f" % (tm.time()-t))
+        print("%02.03f" % (tm.time()-t))

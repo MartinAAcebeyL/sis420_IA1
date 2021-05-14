@@ -47,8 +47,8 @@ def get_hijos(padre_Nodo):
     hijos = []
     accions = ['L', 'R', 'U', 'D']
     for accion in accions:
-        hijo_estado = padre_Nodo.estado.ejecutar_accion(accion)
-        hijo_Nodo = Nodo(hijo_estado, padre_Nodo, accion)
+        hijo_estado = padre_Nodo.estado.ejecutar_accion(accion)#mueve las fichas
+        hijo_Nodo = Nodo(hijo_estado, padre_Nodo, accion)#exapnde, actualiza el table, y ejecuta la accion
         hijos.append(hijo_Nodo)
     return hijos
 
@@ -85,12 +85,13 @@ def find_path(Nodo):
         path.append(Nodo.accion)
         Nodo = Nodo.padre
     path.reverse()
+
     return path
 
 def goal_test():
     return ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15','0']
 
-def astar(estado_inicial:Nodo, estado_objetivo, heuristica):
+def astar(estado_inicial:Nodo, estado_objetivo = goal_test(), heuristica = None):
     '''A* Search Algorithm'''
     start_time = time.time()
 
@@ -112,16 +113,16 @@ def astar(estado_inicial:Nodo, estado_objetivo, heuristica):
                 minim.append(hamming(x.estado.estados) + gcalc(x))  # This is the F = h + g
             elif heuristica == 1:
                 minim.append(manhattan_calculate(x.estado.estados) + gcalc(x))
-
             holder.append(x)
-        m = min(minim)  # finds minimum F value
+        m = min(minim)  #finds minimum F value
         estado_inicial = holder[minim.index(m)]
+        
 
         if estado_inicial.estado.estados == estado_objetivo:  # solution found!
-            end_time = time.time()
-            print("\n\nSolucion:")
+            print("Solucion: ")
             print("Movimientos: " + str(' '.join(find_path(estado_inicial))))
             print("Numero de nodos expandidos: " + str(contador))
+            end_time = time.time()
             print("Tiempo empleado: " + str(round((end_time - start_time), 3)))
             # print("Memory Used: " + str(sys.gettamanoof(visitado) + sys.gettamanoof(frontera)) + " kb")
             break

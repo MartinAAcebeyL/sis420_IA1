@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import random
 
 # ================================================
@@ -45,7 +42,6 @@ class Problema_Genetico(object):
         mutante = self.fun_mutar(cromosoma, prob)
         return mutante
 
-    
     # Si se quisiera implementar otro mecanismo de cruza
     #def cruza_loca(self, cromosoma1, cromosoma2, cromosoma3, cromosoma4):
     #    cruce = self.fun_cruza(cromosoma1, cromosoma2, cromosoma3, cromosoma4)
@@ -55,7 +51,6 @@ class Problema_Genetico(object):
         #Función de valoración
         valoracion = self.fun_fitness(cromosoma)
         return valoracion
-
 
 # Función interpreta lista de 0's y 1's como número natural:  
 
@@ -195,15 +190,16 @@ def nueva_generacion_t(problema_genetico, k, opt, poblacion, n_padres, n_directo
 # La siguiente función algoritmo_genetico_t implementa el primero de los
 # algoritmos genéticos (el de selección por torneo)
 
-def algoritmo_genetico_t(problema_genetico, k, opt, ngen, size, prop_cruces, prob_mutar):
+def algoritmo_genetico_t(problema_genetico:Problema_Genetico, participantes_torneo, 
+    opt:str, ngeneraciones, size, prop_cruces, prob_mutar):
     poblacion = poblacion_inicial(problema_genetico, size)
     print("Poblacion Inicial")
     print(poblacion)
     n_padres = round(size * prop_cruces)
     n_padres = int (n_padres if n_padres % 2 == 0 else n_padres - 1)
     n_directos = size - n_padres
-    for _ in range(ngen):
-        poblacion = nueva_generacion_t(problema_genetico, k, opt, poblacion, n_padres, n_directos, prob_mutar)
+    for _ in range(ngeneraciones):
+        poblacion = nueva_generacion_t(problema_genetico, participantes_torneo, opt, poblacion, n_padres, n_directos, prob_mutar)
         print("Nueva población")
         print(poblacion)
     mejor_cr = opt(poblacion, key = problema_genetico.fitness)
@@ -216,7 +212,7 @@ def algoritmo_genetico_t(problema_genetico, k, opt, ngen, size, prop_cruces, pro
 # * k: número de participantes en los torneos de selección.
 # * opt: max ó min, dependiendo si el problema es de maximización o de
 #   minimización. 
-# * ngen: número de generaciones (condición de terminación)
+# * ngeneraciones: número de generaciones (condición de terminación)
 # * tamaño (size): número de individuos en cada generación
 # * prop_cruces: proporción del total de la población que serán padres. 
 # * prob_mutar: probabilidad de realizar una mutación de un gen.
@@ -272,14 +268,7 @@ ecua_gen = Problema_Genetico([0, 1], decodificar_x, fun_cruzar, fun_mutar, fun_f
 #ecua_gen2 = Problema_Genetico([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], deco_x2, fun_cruzar, fun_mutar, fun_fitnnes_ecuacion2, 2)
 
 #Prueba resolucion de ecuacino utilizando representacion binaria
-print(algoritmo_genetico_t(ecua_gen, 3, min, 100, 10, 0.7, 0.1))
-
+print(algoritmo_genetico_t(ecua_gen, 3, max, 100, 10, 0.7, 0.1))
 
 #Prueba resolucion de ecuacino utilizando representacion binaria
 #print(algoritmo_genetico_t(ecua_gen2, 3, min, 50, 10, 0.7, 0.1))
-
-
-
-
-
-

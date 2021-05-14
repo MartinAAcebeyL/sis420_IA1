@@ -1,12 +1,12 @@
 from busquedas_02 import aestrella, ProblemaBusqueda
 
-OBJETIVO = '''1-2-3
-4-5-6
-7-8-e'''
+OBJETIVO = '''1-2-3-4-5
+6-7-8-9-10
+11-12-13-14-e'''
 
-INICIAL = '''1-2-e
-3-4-5
-6-7-8'''
+INICIAL = '''1-2-3-4-5
+6-7-8-9-10
+e-11-12-13-14'''
 
 
 def list_to_string(list_):
@@ -28,7 +28,7 @@ def find_location(filas, element_to_find):
 
 posiciones_objetivo = {}
 filas_objetivo = string_to_list(OBJETIVO)
-for numero in '1,2,3,4,5,6,7,8,e'.split(','):
+for numero in '1,2,3,4,5,6,7,8,9,10,11,12,13,14,e'.split(','):
     posiciones_objetivo[numero] = find_location(filas_objetivo, numero)
 
 
@@ -45,9 +45,8 @@ class EigthPuzzleProblem(ProblemaBusqueda):
             acciones.append(filas[fila_e + 1][columna_e])
         if columna_e > 0:
             acciones.append(filas[fila_e][columna_e - 1])
-        if columna_e < 2:
+        if columna_e < 4:
             acciones.append(filas[fila_e][columna_e + 1])
-
         return acciones
 
     def resultado(self, estado, accion):
@@ -78,7 +77,7 @@ class EigthPuzzleProblem(ProblemaBusqueda):
 
         distancia = 0
 
-        for numero in '1,2,3,4,5,6,7,8,e'.split(','):
+        for numero in '1,2,3,4,5,6,7,8,9,10,11,12,13,14,e'.split(','):
             fila_n, columna_n = find_location(filas, numero)
             fila_n_objetivo, col_n_goal = posiciones_objetivo[numero]
 
@@ -87,7 +86,7 @@ class EigthPuzzleProblem(ProblemaBusqueda):
         return distancia
 
 
-resultado = aestrella(EigthPuzzleProblem(INICIAL))
+resultado = aestrella(problema=EigthPuzzleProblem(INICIAL))
 
 for accion, estado in resultado.camino():
     print('Move numero', accion)
