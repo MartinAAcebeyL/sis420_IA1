@@ -1,32 +1,49 @@
 import math
-import os
-import sys
 import time
 from queue import PriorityQueue
 
 class Tablero:
     def __init__(self, estados):
-        self.tamano = 4
-        
+        self.tamano = 4    
         self.estados = estados
+        self.tab=[]
 
     def ejecutar_accion(self, accion):
         nuevos_estados = self.estados[:]
-        indice_vacio = nuevos_estados.index('0')
+        indice_vacio_1 = nuevos_estados.index('0')
+
+        para_nxm = []
+        intervalo_superior = 4
+        for intervalo_inferior in range(0,len(nuevos_estados),4):
+            para_nxm.append(nuevos_estados[intervalo_inferior:intervalo_superior])
+            intervalo_superior += 4
+
+        self.tab = para_nxm
+        
+        #2da fase
+        if indice_vacio_1 in range(0, len(nuevos_estados)//4):
+            fila = 0
+        elif indice_vacio_1 in range(4, len(nuevos_estados)*1//2):
+            fila = 1
+        elif indice_vacio_1 in range(8, len(nuevos_estados)*3//4):
+            fila = 2
+        elif indice_vacio_1 in range(12, len(nuevos_estados)):
+            fila = 3
+        columna = para_nxm[fila].index('0')
+
         if accion == 'L':
-            if indice_vacio % self.tamano > 0:
-                nuevos_estados[indice_vacio - 1], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[indice_vacio - 1]
+            if columna > 0:
+                nuevos_estados[indice_vacio_1 - 1], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 - 1]
         if accion == 'R':
-            if indice_vacio % self.tamano < (self.tamano - 1):
-                nuevos_estados[indice_vacio + 1], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[indice_vacio + 1]
+            if columna < 3:
+                nuevos_estados[indice_vacio_1 + 1], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 + 1]
         if accion == 'U':
-            if indice_vacio - self.tamano >= 0:
-                nuevos_estados[indice_vacio - self.tamano], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[
-                    indice_vacio - self.tamano]
+            if fila > 0:
+                nuevos_estados[indice_vacio_1 - self.tamano], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 - self.tamano]
         if accion == 'D':
-            if indice_vacio + self.tamano < self.tamano * self.tamano:
-                nuevos_estados[indice_vacio + self.tamano], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[
-                    indice_vacio + self.tamano]
+            if fila < 3:
+                nuevos_estados[indice_vacio_1 + self.tamano], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 + self.tamano]
+        
         return Tablero(nuevos_estados)
 
 class Nodo:
@@ -35,14 +52,14 @@ class Nodo:
         self.padre = padre
         self.accion = accion
 
-    """def __repr__(self):
+    def __repr__(self):
         return str(self.estado.estados)
 
     def __eq__(self, otro):
         return self.estado.estados == otro.estado.estados
 
     def __hash__(self):
-        return hash(self.estado)"""
+        return hash(self.estado)
 
 def get_hijos(padre_Nodo):
     hijos = []
@@ -113,12 +130,13 @@ def astar(estado_inicial:Nodo, estado_objetivo = goal_test(), heuristica = None)
             if heuristica == 0:
                 minim.append(hamming(x.estado.estados) + gcalc(x))  # This is the F = h + g
             elif heuristica == 1:
-                minim.append(manhattan_calculate(x.estado.estados) + gcalc(x))
+                minim.append(manhattan_calculate(x.estado.estados) + gcalc(x) )
             holder.append(x)
         m = min(minim)  #finds minimum F value
         estado_inicial = holder[minim.index(m)]
-        print(estado_inicial.estado.estados)
-
+        #print(estado_inicial.estado.estados)
+        
+        #print(estado_inicial.estado.tab)
         if estado_inicial.estado.estados == estado_objetivo:  # solution found!
             x=str(' '.join(find_path(estado_inicial)))
             print("Solucion: ")
@@ -126,14 +144,13 @@ def astar(estado_inicial:Nodo, estado_objetivo = goal_test(), heuristica = None)
             print("Numero de nodos expandidos: " + str(contador))
             end_time = time.time()
             print("Tiempo empleado: " + str(round((end_time - start_time), 3)))
-            # print("Memory Used: " + str(sys.gettamanoof(visitado) + sys.gettamanoof(frontera)) + " kb")
             return x
 
         frontera.pop(frontera.index(estado_inicial))
         for hijo in get_hijos(estado_inicial):
             contador += 1
             s = hijo.estado
-            if s not in visitado or gcalc(hijo) < gcalc(visitado[s]):
+            if s not in visitado: #or gcalc(hijo) < gcalc(visitado[s]):
                 visitado[s] = hijo
                 frontera.append(hijo)
 

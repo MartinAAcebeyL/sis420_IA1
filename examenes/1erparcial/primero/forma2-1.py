@@ -6,27 +6,46 @@ from queue import PriorityQueue
 
 class Tablero:
     def __init__(self, estados):
-        self.tamano = 4
-        
+        self.tamano = 5
         self.estados = estados
 
     def ejecutar_accion(self, accion):
         nuevos_estados = self.estados[:]
-        indice_vacio = nuevos_estados.index('0')
+        indice_vacio_1 = nuevos_estados.index('0')
+        
+        para_nxm = []
+        intervalo_superior = 5
+        for intervalo_inferior in range(0,len(nuevos_estados),5):
+            para_nxm.append(nuevos_estados[intervalo_inferior:intervalo_superior])
+            intervalo_superior += 5
+        
+        #2da fase
+        if indice_vacio_1 in range(0, len(nuevos_estados)*1//3):
+            fila = 0
+        elif indice_vacio_1 in range(3, len(nuevos_estados)*2//3):
+            fila = 1
+        elif indice_vacio_1 in range(6, len(nuevos_estados)):
+            fila = 3
+        
+     
+        columna = para_nxm[fila].index('0')
+
         if accion == 'L':
-            if indice_vacio % self.tamano > 0:
-                nuevos_estados[indice_vacio - 1], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[indice_vacio - 1]
+            if columna > 0:
+                nuevos_estados[indice_vacio_1 - 1], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 - 1]
         if accion == 'R':
-            if indice_vacio % self.tamano < (self.tamano - 1):
-                nuevos_estados[indice_vacio + 1], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[indice_vacio + 1]
+            if columna < 4:
+                nuevos_estados[indice_vacio_1 + 1], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 + 1]
         if accion == 'U':
-            if indice_vacio - self.tamano >= 0:
-                nuevos_estados[indice_vacio - self.tamano], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[
-                    indice_vacio - self.tamano]
+            if fila > 0:
+                nuevos_estados[indice_vacio_1 - self.tamano], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 - self.tamano]
         if accion == 'D':
-            if indice_vacio + self.tamano < self.tamano * self.tamano:
-                nuevos_estados[indice_vacio + self.tamano], nuevos_estados[indice_vacio] = nuevos_estados[indice_vacio], nuevos_estados[
-                    indice_vacio + self.tamano]
+            if fila < 2:
+                nuevos_estados[indice_vacio_1 + self.tamano], nuevos_estados[indice_vacio_1] = nuevos_estados[indice_vacio_1], nuevos_estados[indice_vacio_1 + self.tamano]
+        print('------------')
+        for i in para_nxm:
+            print(i)
+        print('------------')
         return Tablero(nuevos_estados)
 
 class Nodo:
@@ -35,14 +54,6 @@ class Nodo:
         self.padre = padre
         self.accion = accion
 
-    """def __repr__(self):
-        return str(self.estado.estados)
-
-    def __eq__(self, otro):
-        return self.estado.estados == otro.estado.estados
-
-    def __hash__(self):
-        return hash(self.estado)"""
 
 def get_hijos(padre_Nodo):
     hijos = []
@@ -61,7 +72,7 @@ def gcalc(Nodo):
         contador += 1
     return contador
 
-def hamming(estados:Tablero):
+def hamming(estados):
     ''' heuristicaa Hamming: cuenta el numero de posiciones erroneas en diferentes estados'''
     cant_posiciones_erroneas = 0
     objetivo_estados = goal_test()
@@ -71,12 +82,12 @@ def hamming(estados:Tablero):
     return cant_posiciones_erroneas
 
 def manhattan_calculate(estados):
-    '''heuristicaa Manhattan: cuenta el numero de cuadros a
-    partir de una ubicacion en relacion a su posicion final'''
     contador = 0
-    for i in range(0, 15):
-        index = estados.index(str(i + 1))  # because range starts at 0
-        contador += (abs((i / 4) - (index / 4)) + abs((i % 4) - (index % 4)))  # %4 is the column and /4 is the row
+    goal = goal_test()
+    for i in range(0, 14):
+        index = estados.index(str(i + 1))
+        index1 = goal.index(str(i + 1))
+        contador += abs(index1-index)
     return contador
 
 def find_path(Nodo):
@@ -86,11 +97,10 @@ def find_path(Nodo):
         path.append(Nodo.accion)
         Nodo = Nodo.padre
     path.reverse()
-
     return path
 
 def goal_test():
-    return ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15','0']
+    return ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10','11', '12', '13', '14','0']
 
 def astar(estado_inicial:Nodo, estado_objetivo = goal_test(), heuristica = None):
     '''A* Search Algorithm'''
@@ -117,8 +127,7 @@ def astar(estado_inicial:Nodo, estado_objetivo = goal_test(), heuristica = None)
             holder.append(x)
         m = min(minim)  #finds minimum F value
         estado_inicial = holder[minim.index(m)]
-        print(estado_inicial.estado.estados)
-
+        
         if estado_inicial.estado.estados == estado_objetivo:  # solution found!
             x=str(' '.join(find_path(estado_inicial)))
             print("Solucion: ")
@@ -126,8 +135,7 @@ def astar(estado_inicial:Nodo, estado_objetivo = goal_test(), heuristica = None)
             print("Numero de nodos expandidos: " + str(contador))
             end_time = time.time()
             print("Tiempo empleado: " + str(round((end_time - start_time), 3)))
-            # print("Memory Used: " + str(sys.gettamanoof(visitado) + sys.gettamanoof(frontera)) + " kb")
-            return x
+            break
 
         frontera.pop(frontera.index(estado_inicial))
         for hijo in get_hijos(estado_inicial):
@@ -138,20 +146,18 @@ def astar(estado_inicial:Nodo, estado_objetivo = goal_test(), heuristica = None)
                 frontera.append(hijo)
 
 def main():
-    ei = ['1', '3', '4', '8', '5', '2', '0', '6', '9', '10', '7', '11', '13', '14', '15', '12']
-    # ei = ['0', '15', '14', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '1', '2', '3']
+    ei = ['1', '0','3', '4', '2', '5','6', '8', '7', '9', '10', '11','12', '13', '14']
 
-    heuristica = input("Enter heuristica either 'H' or 'M' (H is Hamming and M is Manhattan): ")
-    if heuristica.upper() == 'H':
+    #heuristica = input("Enter heuristica either 'H' or 'M' (H is Hamming and M is Manhattan): ")
+    """if heuristica.upper() == 'H':
         heuristica = 0
     elif heuristica.upper() == 'M':
-        heuristica = 1
+        heuristica = 1"""
 
     #max_depth = 10
     root = Nodo(estado = Tablero(ei))
 
-    x=astar(estado_inicial = root, estado_objetivo = goal_test(), heuristica = heuristica)
-    print(x)
+    astar(estado_inicial = root, estado_objetivo = goal_test(), heuristica = 1)
     
 
 # Press the green button in the gutter to run the script.

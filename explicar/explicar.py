@@ -135,21 +135,6 @@ def getComputerMove(board, turn, computerLetter):
 			opcoes.append(move)
 	return random.choice(opcoes)
 
-
-"""def chooseRandomMoveFromList(board, movesList):
-	#Retorna un movimento valido aleatorio
-	#Retorna None si no existen movimentos validos posibles
-
-	posiblesMovimentos = []
-	for i in movesList:
-		if isSpaceFree(board, i):
-			posiblesMovimentos.append(i)
-
-	if len(posiblesMovimentos) != 0:
-		return random.choice(posiblesMovimentos)
-	else:
-		return None"""
-
 def isBoardFull(board):
 	#Retorna True si no existen espacios disponibles en el tablero
 	for i in range(1, 10):
