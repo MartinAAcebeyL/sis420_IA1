@@ -138,7 +138,7 @@ def ai_turn(c_choice, h_choice):
     print(f'Juega COMPUTADO [{c_choice}]')
     render(board, c_choice, h_choice)
     print(depth)
-    if depth >= 9:
+    if depth >= 13:
         x = choice(range(4))
         y = choice(range(4))
     else:

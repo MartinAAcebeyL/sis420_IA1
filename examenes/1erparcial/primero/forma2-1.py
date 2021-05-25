@@ -8,7 +8,8 @@ class Tablero:
     def __init__(self, estados):
         self.tamano = 5
         self.estados = estados
-
+    #[.....]
+    
     def ejecutar_accion(self, accion):
         nuevos_estados = self.estados[:]
         indice_vacio_1 = nuevos_estados.index('0')
@@ -25,7 +26,7 @@ class Tablero:
         elif indice_vacio_1 in range(3, len(nuevos_estados)*2//3):
             fila = 1
         elif indice_vacio_1 in range(6, len(nuevos_estados)):
-            fila = 3
+            fila = 2
         
      
         columna = para_nxm[fila].index('0')

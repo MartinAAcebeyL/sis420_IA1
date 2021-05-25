@@ -28,8 +28,9 @@ class DNA():
         return fit
     
     def selection(self, poblacion):
-        scores = [(self.fitness(i),i) for i in poblacion]
+        scores = [(self.fitness(i), i) for i in poblacion]
         score = [i[1] for i in sorted(scores)]
+        #print('score', score)
         selected = score[len(score)-self.n_selection:]
         return selected
 
@@ -37,22 +38,38 @@ class DNA():
         point = 0
         father = []
         for i in range(len(poblacion)):
+            father = random.sample(selection,2)
+            cromosoma1 = father[0]
+            cromosoma2 = father[1]
+            l1 = len(cromosoma1)
+            l2 = len(cromosoma2)
+
+            poblacion[i][0:l1 // 2] = father[0][l1 // 2:l2]
+            poblacion[i][0:l2 // 2] = father[1][l2 // 2:l1]
+
+        """for i in range(len(poblacion)):
             point = np.random.randint(1, len(self.target) -1)
             father = random.sample(selection,2)
-
+            print('point father',point,father)
             poblacion[i][:point] = father[0][:point]
-            poblacion[i][point:] = father[1][point:]
+            poblacion[i][point:] = father[1][point:]"""
         return poblacion
 
     def mutacion(self, poblacion):
+        
         for i in range(len(poblacion)):
-            if random.random() <= self.mutation_rate:
-                point = random.randint(1, len(self.target)-1)
+            if random.random() < self.mutation_rate:
+                #punto a modificar
+                point = random.randint(0, len(self.target)-1)
+                #valor  a modificar
                 new_value = np.random.randint(0,2)
-
+                """print('poblacion ->',poblacion[i],end=' ')
+                print(point,end=' ')
+                print(poblacion[i][point])"""
                 while new_value == poblacion[i][point]:
                     new_value = np.random.randint(0,2)
                 poblacion[i][point] = new_value
+
         return poblacion
 
     def run_generation(self):
@@ -86,16 +103,16 @@ def pintar(x,y):
         flag = not flag
         
 def main():
-    target = [1,0,1,0,1,0] 
+    target = [1,0,1,0,1,0]
     model = DNA(target, 0.02, 6, 5, 50, True)
-    x=model.run_generation()
+    x=model.create_population()
     print(x)
-    if target in x:
+    """ if target in x:
         indice = x.index(target)
         valor = x.pop(indice)
         pintar(valor, valor[::-1])
     else:
-        main()
+        main()"""
 
 if __name__ == '__main__':
     main()
