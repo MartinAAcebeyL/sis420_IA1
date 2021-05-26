@@ -78,5 +78,5 @@ class EigthPuzzleProblem(ProblemaBusqueda):
 resultado = aestrella(EigthPuzzleProblem(INICIAL), True)
 
 for accion, estado in resultado.camino():
-    print('Move numero', accion)
+    print('Mov numero', accion)
     print(estado)
