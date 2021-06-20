@@ -1,7 +1,7 @@
 from matplotlib import pyplot
 import sys
 import numpy as np
-
+from scipy import optimize
 
 sys.path.append('..')
 
