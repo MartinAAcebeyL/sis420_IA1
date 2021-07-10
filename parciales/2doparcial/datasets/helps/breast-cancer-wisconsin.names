@@ -1,0 +1,126 @@
+Solicitud de cita:
+   Esta base de datos de cáncer de mama se obtuvo de la Universidad de Wisconsin.
+   Hospitales, Madison del Dr. William H. Wolberg. Si publica resultados
+   cuando utilice esta base de datos, incluya esta información en su
+   Agradecimientos. Además, cite uno o más de:
+
+   1. O. L. Mangasarian y W. H. Wolberg: "Diagnóstico del cáncer mediante
+      programación ", SIAM News, Volumen 23, Número 5, septiembre de 1990, págs. 1 y 18.
+
+   2. William H. Wolberg y O.L. Mangasarian: "Método multisuperficie de
+      separación de patrones para el diagnóstico médico aplicado a la citología mamaria ",
+      Actas de la Academia Nacional de Ciencias, EE. UU., Volumen 87,
+      Diciembre de 1990, págs. 9193-9196.
+
+   3. O. L. Mangasarian, R. Setiono y W.H. Wolberg: "Reconocimiento de patrones
+      vía programación lineal: teoría y aplicación al diagnóstico médico ",
+      en: "Optimización numérica a gran escala", Thomas F. Coleman y Yuying
+      Li, editores, SIAM Publications, Filadelfia 1990, págs. 22-30.
+
+   4. K. P. Bennett y O. L. Mangasarian: "Programación lineal robusta
+      discriminación de dos conjuntos linealmente inseparables ", métodos de optimización
+      and Software 1, 1992, 23-34 (Gordon & Breach Science Publishers).
+
+#comentarios sobre Agradecimientos
+
+
+1. Título: Base de datos de cáncer de mama de Wisconsin (8 de enero de 1991)
+
+2. Fuentes:
+   - Dr. WIlliam H. Wolberg (médico)
+      Hospitales de la Universidad de Wisconsin
+      Madison, Wisconsin
+      EE.UU
+   - Donante: Olvi Mangasarian (mangasarian@cs.wisc.edu)
+      Recibido por David W. Aha (aha@cs.jhu.edu)
+   - Fecha: 15 de julio de 1992
+
+3. Uso pasado:
+   Los atributos 2 a 10 se han utilizado para representar instancias.
+   Cada instancia tiene una de dos clases posibles: benigna o maligna.
+
+   1. Wolberg, ~ W. ~ H., \ Y Mangasarian, ~ O. ~ L. (1990). Método multisuperficie de
+      separación de patrones para diagnóstico médico aplicado a la citología mamaria. En
+      {\ it Proceedings of the National Academy of Sciences}, {\ it 87},
+      9193--9196.
+      - Tamaño del conjunto de datos: solo 369 instancias (en ese momento)
+      - Resultados de clasificación recopilados: solo 1 ensayo
+      - Se encontró que dos pares de hiperplanos paralelos eran consistentes con
+         50% de los datos
+         - Precisión en el 50% restante del conjunto de datos: 93,5%
+      - Se encontró que tres pares de hiperplanos paralelos eran consistentes con
+         67% de datos
+         - Precisión en el 33% restante del conjunto de datos: 95,9%
+
+   2. Zhang, ~ J. (1992). Seleccionar instancias típicas en instancia basada
+      aprendiendo. En {\ it Actas de la Novena Máquina Internacional
+      Conferencia de aprendizaje} (págs. 470--479). Aberdeen, Escocia: Morgan
+      Kaufmann.
+      - Tamaño del conjunto de datos: solo 369 instancias (en ese momento)
+      - 4 algoritmos de aprendizaje basados ​​en instancias aplicados
+      - Resultados de clasificación recopilados promediados en 10 ensayos
+      - Mejor resultado de precisión:
+         - 1 vecino más cercano: 93,7%
+         - entrenado en 200 instancias, probado en las otras 169
+      - También de interés:
+         - Usando solo instancias típicas: 92.2% (almacenando solo 23.1 instancias)
+         - entrenado en 200 instancias, probado en las otras 169
+
+4. Informacion relevante:
+   Las muestras llegan periódicamente a medida que el Dr. Wolberg informa sobre sus casos clínicos.
+   Por tanto, la base de datos refleja esta agrupación cronológica de datos.
+   Esta información de agrupación aparece inmediatamente debajo, habiendo sido eliminada
+   a partir de los datos en sí:
+
+     Grupo 1:367 instancias (enero de 1989)
+     Grupo 2:70 instancias (octubre de 1989)
+     Grupo 3:31 instancias (febrero de 1990)
+     Grupo 4:17 instancias (abril de 1990)
+     Grupo 5:48 instancias (agosto de 1990)
+     Grupo 6:49 instancias (actualizado en enero de 1991)
+     Grupo 7:31 instancias (junio de 1991)
+     Grupo 8:86 instancias (noviembre de 1991)
+     -----------------------------------------
+    Total: 699 puntos (a partir de la base de datos donada el 15 de julio de 1992)
+
+   Tenga en cuenta que los resultados resumidos anteriormente en Uso pasado se refieren a un conjunto de datos
+   de tamaño 369, mientras que el Grupo 1 tiene solo 367 instancias. Esto se debe a que
+   originalmente contenía 369 instancias; Se eliminaron 2. La siguiente
+   declaraciones resumen los cambios en el conjunto de datos del Grupo 1 original:
+
+   ##### Grupo 1: 367 puntos: 200B 167M (enero de 1989)
+   ##### Revisado el 10 de enero de 1991: Reemplazo de cero núcleos desnudos en 1080185 y 1187805
+   ##### Revisado el 22 de noviembre de 1991: eliminado 765878,4,5,9,7,10,10,10,3,8,1 sin registro
+   #####:   Se eliminó 484201,2,7,8,8,4,3,10,3,4,1 epitelial cero
+   #####:   se cambió de 0 a 1 en el campo 6 de la muestra 1219406
+   #####:   Se cambió de 0 a 1 en el campo 8 de la siguiente muestra:
+   #####:   1182404,2,3,1,1,1,2,0,1,1,1
+
+5. Número de instancias: 699 (al 15 de julio de 1992)
+
+#mas relevante
+
+6. Number of Attributes: 10 más el atributo de clase
+
+7. Información de atributo: (el atributo de clase se ha movido a la última columna)
+   #  Atributo                               Dominio
+   -- ----------------------------------------------
+   1. Número de código de muestra               id number
+   2. Espesor del grupo                         1 - 10
+   3. Uniformidad del tamaño de la celda        1 - 10
+   4. Uniformidad de la forma celular           1 - 10
+   5. Adhesión marginal                         1 - 10
+   6. Tamaño de una sola célula epitelial       1 - 10
+   7. Núcleos desnudos                          1 - 10
+   8. Cromatina suave                           1 - 10
+   9. Nucleolos normales                        1 - 10
+  10. Mitosis                                   1 - 10
+  11. Clase:                                    (2 para benigno, 4 para maligno)
+
+8. Valores de atributo faltantes: 16
+   Hay 16 instancias en los Grupos 1 a 6 que contienen una sola falta
+   (es decir, no disponible) valor de atributo, ahora denotado por "?".  
+
+9. Distribución de clases:
+   Benigno: 458 (65,5%)
+   Malignos: 241 (34,5%)

@@ -1,0 +1,73 @@
+Solicitud de cita:
+   Este dominio de cáncer de mama se obtuvo del Centro Médico Universitario,
+   Instituto de Oncología, Ljubljana, Yugoslavia. Gracias a M. Zwitter y
+   M. Soklic por proporcionar los datos. Incluya esta cita si planea
+   para utilizar esta base de datos.
+
+1. Título: Datos sobre el cáncer de mama (Michalski los ha utilizado)
+
+2. Fuentes:
+   - Matjaz Zwitter y Milan Soklic (médicos)
+      Instituto de Oncología
+      Centro Médico Universitario
+      Liubliana, Yugoslavia
+   - Donantes: Ming Tan y Jeff Schlimmer (Jeffrey.Schlimmer@a.gp.cs.cmu.edu)
+   - Fecha: 11 de julio de 1988
+
+3. Uso pasado: (varios: aquí hay algunos)
+     -Michalski, R.S., Mozetic, I., Hong, J. Y Lavrac, N. (1986). La
+        Sistema de aprendizaje incremental multipropósito AQ15 y sus pruebas
+        Aplicación a tres dominios médicos. En Actas de la
+        Quinta Conferencia Nacional de Inteligencia Artificial, 1041-1045,
+        Filadelfia, Pensilvania: Morgan Kaufmann.
+        - rango de precisión: 66% -72%
+     - Clark, P. Y Niblett, T. (1987). Inducción en dominios ruidosos. En
+        progreso en el aprendizaje automático (de las actas del segundo
+        Sesión de trabajo europea sobre el aprendizaje), 11-30, Bled,
+        Yugoslavia: Sigma Press.
+        - Se dan 8 resultados de prueba: rango de precisión del 65% -72%
+     - Tan, M. y Eshelman, L. (1988). Usar redes ponderadas para
+        representan el conocimiento de clasificación en dominios ruidosos. Actas
+        de la Quinta Conferencia Internacional sobre Aprendizaje Automático, 121-134,
+        Ann Arbor, MI.
+        - 4 sistemas probados: el rango de precisión fue del 68% al 73,5%
+    - Cestnik, G., Konenenko, I y Bratko, I. (1987). Asistente-86: A
+       Herramienta de obtención de conocimientos para usuarios sofisticados. En I.Bratko
+       & N.Lavrac (Eds.) Progress in Machine Learning, 31-45, Sigma Press.
+       - Asistente-86: 78% de precisión
+
+4. Informacion relevante:
+     Este es uno de los tres dominios proporcionados por el Instituto de Oncología.
+     que ha aparecido repetidamente en la literatura sobre aprendizaje automático.
+     (Ver también linfografía y tumor primario).
+
+     Este conjunto de datos incluye 201 instancias de una clase y 85 instancias de
+     otra clase. Las instancias se describen mediante 9 atributos, algunos de
+     que son lineales y algunos son nominales.
+
+5. Número de instancias: 286
+
+6. Número de atributos: 9 + el atributo de clase
+
+7. Información de atributos:
+   1. Clase: eventos sin recurrencia, eventos con recurrencia
+   2. edad: 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70-79, 80-89, 90-99.
+   3. menopausia: lt40, ge40, premeno.
+   4. tamaño del tumor: 0-4, 5-9, 10-14, 15-19, 20-24, 25-29, 30-34, 35-39, 40-44,
+                  45-49, 50-54, 55-59.
+   5. inv-nodos: 0-2, 3-5, 6-8, 9-11, 12-14, 15-17, 18-20, 21-23, 24-26,
+                 27-29, 30-32, 33-35, 36-39.
+   6. Nodo-límites: sí, no.
+   7. grados malig: 1, 2, 3.
+   8. mama: izquierda, derecha.
+   9. cuádriceps: izquierda arriba, izquierda abajo, derecha arriba, derecha abajo, central.
+  10. irradiat: sí, no.
+
+8. Valores de atributos perdidos: (indicados por "?")
+   Atributo #: Número de instancias con valores perdidos:
+   6.             8
+   9.             1.
+
+9.Distribución de clases:
+    1. eventos sin recurrencia: 201 instancias
+    2. eventos recurrentes: 85 instancias
